@@ -7,7 +7,6 @@ ofstream outFile("../output.txt");
 int numLine = 0;
 int numData = 0;
 bool dataFlag = false;
-string line;
 
 string cardData[10];
 int dataNum = 0;
@@ -72,6 +71,7 @@ void readInput(byte *instruction) {
 
 
 int main() {
+    string line;
 
     //read everything
     while (getline(inFile, line)) {
