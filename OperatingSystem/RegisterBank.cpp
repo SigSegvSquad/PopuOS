@@ -23,7 +23,7 @@ void RegisterBank::showRegister() {
     for (int i = 0; i < INSTRUCTION_LIMIT; i++) {
         cout << "Address " << i << ": ";
         for (int j = 0; j < INSTRUCTION_SIZE; j++) {
-            cout << this->memoryRegisters[i][j];
+            putchar(this->memoryRegisters[i][j]);
         }
         cout << endl;
     }
