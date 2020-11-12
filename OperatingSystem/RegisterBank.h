@@ -8,13 +8,12 @@ using namespace std;
 class RegisterBank {
 public:
     byte memoryRegisters[INSTRUCTION_LIMIT][INSTRUCTION_SIZE];      // Contains program and memory content
-    byte R[INSTRUCTION_SIZE];
+    byte R[INSTRUCTION_SIZE];                                       // general purpose register
     byte IR[INSTRUCTION_SIZE];                                      // Instruction Register
     u16 IC;                                                         // Instruction Count
     bool C;                                                         // Toggle
 
     void init();
-
     void showRegister();
 };
 

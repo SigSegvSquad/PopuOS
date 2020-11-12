@@ -1,69 +1,76 @@
-
 #include "Processor.h"
 
-
-
-Processor :: Processor(){
-    dataNum = 0;
-    done = false;
-    numLine = 0;
-    numData = 0;
-    dataFlag = false;
+Processor::Processor(RegisterBank *r, string *s, ifstream *i, ofstream *o) {
+    cardData = s;
+    inFile = i;
+    outFile = o;
+    registerBank = r;
 }
 
-void Processor :: halt() {
+void Processor::init() {
+    dataNum = 0;
+    done = false;
+}
+
+void Processor::run() {
+    while (!done) {
+        memcpy(registerBank->IR, registerBank->memoryRegisters[registerBank->IC], 4);
+        registerBank->IC++;
+        readInput(registerBank->IR);
+    }
+    *outFile << endl << endl;
+}
+
+void Processor::halt() {
     done = true;
 }
 
-void Processor :: getData(int address, RegisterBank &registerBank) {
+void Processor::getData(int address) {
     string line = cardData[dataNum++];
-    memcpy(&registerBank.memoryRegisters[address], line.c_str(), line.size());
+    memcpy(&registerBank->memoryRegisters[address], line.c_str(), line.size());
 }
 
-void Processor :: printData(int address, RegisterBank &registerBank) {
-    ofstream outFile("../output.txt", ios::app);
+void Processor::printData(int address) {
     char line[40];
-    memcpy(&line, &registerBank.memoryRegisters[address], 40);
-    outFile << line << endl;
-    outFile.close();
+    memcpy(&line, &registerBank->memoryRegisters[address], 40);
+    *outFile << line << endl;
 }
 
 //load data from memory address into register
-void Processor :: loadRegister(int address, RegisterBank &registerBank) {
-    memcpy(registerBank.R, &registerBank.memoryRegisters[address], 4);
+void Processor::loadRegister(int address) {
+    memcpy(registerBank->R, &registerBank->memoryRegisters[address], 4);
 }
 
 //store data from register into memory address
-void Processor :: storeRegister(int address, RegisterBank &registerBank) {
-    memcpy(&registerBank.memoryRegisters[address], registerBank.R, 4);
+void Processor::storeRegister(int address) {
+    memcpy(&registerBank->memoryRegisters[address], registerBank->R, 4);
 }
 
-void Processor :: compareRegister(int address, RegisterBank &registerBank) {
+void Processor::compareRegister(int address) {
     bool equal = true;
     for (int i = 0; i < 4; i++) {
-        cout << registerBank.memoryRegisters[address][i] << ' ' << registerBank.R[i] << endl;
-        if (registerBank.memoryRegisters[address][i] != registerBank.R[i]) {
+        if (registerBank->memoryRegisters[address][i] != registerBank->R[i]) {
             equal = false;
             break;
         }
     }
-    registerBank.C = equal;
+    registerBank->C = equal;
 }
 
-void Processor :: branchIfTrue(int address, RegisterBank &registerBank) {
-    if (registerBank.C) {
-        registerBank.IC = address;
+void Processor::branchIfTrue(int address) {
+    if (registerBank->C) {
+        registerBank->IC = address;
     }
 }
 
 
-void Processor :: readInput(const byte *instruction, RegisterBank &registerBank) {
+void Processor::readInput(const byte *instruction) {
     int address = (instruction[2] - '0') * 10 + (instruction[3] - '0');
     if (instruction[0] == 'H') { halt(); }
-    else if (instruction[0] == 'G' && instruction[1] == 'D') { getData(address, registerBank); }
-    else if (instruction[0] == 'P' && instruction[1] == 'D') { printData(address, registerBank); }
-    else if (instruction[0] == 'L' && instruction[1] == 'R') { loadRegister(address, registerBank); }
-    else if (instruction[0] == 'S' && instruction[1] == 'R') { storeRegister(address, registerBank); }
-    else if (instruction[0] == 'C' && instruction[1] == 'R') { compareRegister(address, registerBank); }
-    else if (instruction[0] == 'B' && instruction[1] == 'T') { branchIfTrue(address, registerBank); }
+    else if (instruction[0] == 'G' && instruction[1] == 'D') { getData(address); }
+    else if (instruction[0] == 'P' && instruction[1] == 'D') { printData(address); }
+    else if (instruction[0] == 'L' && instruction[1] == 'R') { loadRegister(address); }
+    else if (instruction[0] == 'S' && instruction[1] == 'R') { storeRegister(address); }
+    else if (instruction[0] == 'C' && instruction[1] == 'R') { compareRegister(address); }
+    else if (instruction[0] == 'B' && instruction[1] == 'T') { branchIfTrue(address); }
 }

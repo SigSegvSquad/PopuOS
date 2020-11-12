@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 
-#define EMPTY '_'
+#define EMPTY ' '
 #define INSTRUCTION_LIMIT 100
 #define INSTRUCTION_SIZE 4
 

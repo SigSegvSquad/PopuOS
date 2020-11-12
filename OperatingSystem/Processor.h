@@ -1,4 +1,3 @@
-
 #ifndef POPUOS_PROCESSOR_H
 #define POPUOS_PROCESSOR_H
 
@@ -7,23 +6,30 @@
 
 
 class Processor {
-public:
-    int numLine;
-    int numData;
-    bool dataFlag;
-    string cardData[10];
-    int dataNum;
-    bool done;
+private:
+    int dataNum = 0;
+    int done = false;
+    ofstream *outFile;
+    ifstream *inFile;
+    string *cardData;
+    RegisterBank *registerBank;
 
-    Processor();
+public:
+    Processor(RegisterBank *r, string *s, ifstream *i, ofstream *o);
+    void readInput(const byte *instruction);
+    void init();
+    void run();
+
     void halt();
-    void getData(int address, RegisterBank &registerBank);
-    void printData(int address, RegisterBank &registerBank);
-    void loadRegister(int address, RegisterBank &registerBank);
-    void storeRegister(int address, RegisterBank &registerBank);
-    void compareRegister(int address, RegisterBank &registerBank);
-    void branchIfTrue(int address, RegisterBank &registerBank);
-    void readInput(const byte *instruction, RegisterBank &registerBank);
+    void getData(int address);
+    void printData(int address);
+
+    void loadRegister(int address);
+    void storeRegister(int address);
+    void compareRegister(int address);
+
+    void branchIfTrue(int address);
+
 };
 
 
