@@ -17,7 +17,6 @@ $END0001
 ```
 
 Prints Hello
-
 ```
 $AMJ000200030001
 GD10
