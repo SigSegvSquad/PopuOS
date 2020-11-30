@@ -14,12 +14,6 @@ private:
     string *cardData;
     RegisterBank *registerBank;
 
-public:
-    Processor(RegisterBank *r, string *s, ifstream *i, ofstream *o);
-    void readInput(const byte *instruction);
-    void init();
-    void run();
-
     void halt();
     void getData(int address);
     void printData(int address);
@@ -30,6 +24,11 @@ public:
 
     void branchIfTrue(int address);
 
+public:
+    Processor(RegisterBank *r, string *s, ifstream *i, ofstream *o);
+    void readInput(const byte *instruction);
+    void init();
+    void run();
 };
 
 
