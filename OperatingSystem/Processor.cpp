@@ -1,15 +1,14 @@
 #include "Processor.h"
 
-Processor::Processor(RegisterBank *r, string *s, ifstream *i, ofstream *o) {
-    cardData = s;
+Processor::Processor(RegisterBank *r, ifstream *i, ofstream *o) {
     inFile = i;
     outFile = o;
     registerBank = r;
 }
 
 void Processor::init() {
-    dataNum = 0;
-    done = false;
+    this->done = false;
+    this->registerBank->init();
 }
 
 void Processor::run() {
@@ -18,7 +17,6 @@ void Processor::run() {
         registerBank->IC++;
         readInput(registerBank->IR);
     }
-    *outFile << endl << endl;
 }
 
 void Processor::halt() {
@@ -26,7 +24,8 @@ void Processor::halt() {
 }
 
 void Processor::getData(int address) {
-    string line = cardData[dataNum++];
+    string line;
+    getline(*inFile, line);
     memcpy(&registerBank->memoryRegisters[address], line.c_str(), line.size());
 }
 
@@ -66,7 +65,7 @@ void Processor::branchIfTrue(int address) {
 
 void Processor::readInput(const byte *instruction) {
     int address = (instruction[2] - '0') * 10 + (instruction[3] - '0');
-    if (instruction[0] == 'H') { halt(); }
+    if      (instruction[0] == 'H')                          { halt(); }
     else if (instruction[0] == 'G' && instruction[1] == 'D') { getData(address); }
     else if (instruction[0] == 'P' && instruction[1] == 'D') { printData(address); }
     else if (instruction[0] == 'L' && instruction[1] == 'R') { loadRegister(address); }

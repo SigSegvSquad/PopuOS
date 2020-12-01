@@ -7,13 +7,12 @@
 
 class Processor {
 private:
-    int dataNum = 0;
     int done = false;
-    ofstream *outFile;
     ifstream *inFile;
-    string *cardData;
+    ofstream *outFile;
     RegisterBank *registerBank;
 
+    //instructions
     void halt();
     void getData(int address);
     void printData(int address);
@@ -25,7 +24,7 @@ private:
     void branchIfTrue(int address);
 
 public:
-    Processor(RegisterBank *r, string *s, ifstream *i, ofstream *o);
+    Processor(RegisterBank *r, ifstream *i, ofstream *o);
     void readInput(const byte *instruction);
     void init();
     void run();

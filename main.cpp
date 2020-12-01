@@ -2,36 +2,41 @@
 #include "OperatingSystem/RegisterBank.h"
 #include "OperatingSystem/Processor.h"
 
-int main() {
+string replaceString(string subject, const std::string &search, const string &replace) {
+    size_t pos = 0;
+    while ((pos = subject.find(search, pos)) != string::npos) {
+        subject.replace(pos, search.length(), replace);
+        pos += replace.length();
+    }
+    return subject;
+}
 
+int main() {
     ifstream inFile("../input.txt");
     ofstream outFile("../output.txt");
-    string cardData[10];
-    bool dataFlag = false;
-    int numData = 0, numLine = 0;
-
-    RegisterBank registerBank{};
-    Processor processor(&registerBank, cardData, &inFile, &outFile);
+    bool instructionFlag = false;
+    int numLine = 0;
     string line;
 
-    //read everything
+    RegisterBank registerBank{};
+    Processor processor(&registerBank, &inFile, &outFile);
+
+    //read till EoF
     while (getline(inFile, line)) {
         cout << line << endl;
         if (regex_match(line, regex("(\\$AMJ)(.*)"))) {
-            registerBank.init();
-        } else if (regex_match(line, regex("(\\$DTA)(.*)"))) {
-            dataFlag = true;
-        }  else if (regex_match(line, regex("(\\$END)(.*)"))) {
-            processor.run();
             processor.init();
-            registerBank.showRegister();
-            numData = 0;
-            dataFlag = false;
+            instructionFlag = true;
+        } else if (regex_match(line, regex("(\\$DTA)(.*)"))) {
+            processor.run();
+//            registerBank.showRegister(); //debugging
+            instructionFlag = false;
             numLine = 0;
-            continue;
-        } else if (dataFlag) {
-            cardData[numData++] = line;
-        }else {
+        } else if (regex_match(line, regex("(\\$END)(.*)"))) {
+            instructionFlag = false;
+            outFile << endl << endl;
+        } else if (instructionFlag) {
+            line = replaceString(line, "H", "H000");
             memcpy(&registerBank.memoryRegisters[numLine][0], line.c_str(), line.size());
             numLine += ceil(line.size() / 4);
         }

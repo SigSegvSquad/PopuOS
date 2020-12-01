@@ -12,4 +12,6 @@
 typedef uint8_t byte;
 typedef uint16_t u16;
 
+using namespace std;
+
 #endif //POPUOS_UTILITY_H
