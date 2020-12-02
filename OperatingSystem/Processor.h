@@ -10,6 +10,7 @@ private:
     int done = false;
     ifstream *inFile;
     ofstream *outFile;
+    ofstream *syslog;
     RegisterBank *registerBank;
 
     //instructions
@@ -24,9 +25,9 @@ private:
     void branchIfTrue(int address);
 
 public:
-    Processor(RegisterBank *r, ifstream *i, ofstream *o);
+    Processor(RegisterBank *r, ifstream *i, ofstream *o, ofstream *s);
     void readInput(const byte *instruction);
-    void init();
+    void init(const string& jobID);
     void run();
 };
 

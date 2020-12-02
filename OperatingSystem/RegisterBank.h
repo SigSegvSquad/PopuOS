@@ -14,7 +14,7 @@ public:
     bool C;                                                         // Toggle
 
     void init();
-    void showRegister();
+    void showRegister(ostream *);
 };
 
 #endif //POPUOS_REGISTERBANK_H

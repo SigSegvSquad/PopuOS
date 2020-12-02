@@ -3,7 +3,7 @@
 #include "OperatingSystem/Processor.h"
 
 string replaceString(string subject, const std::string &search, const string &replace) {
-    size_t pos = 0;
+    ulong pos = 0;
     while ((pos = subject.find(search, pos)) != string::npos) {
         subject.replace(pos, search.length(), replace);
         pos += replace.length();
@@ -12,24 +12,23 @@ string replaceString(string subject, const std::string &search, const string &re
 }
 
 int main() {
-    ifstream inFile("../input.txt");
-    ofstream outFile("../output.txt");
+    ifstream inFile("../stdio/input.txt");
+    ofstream outFile("../stdio/output.txt");
+    ofstream syslog("../stdio/syslog.txt");
     bool instructionFlag = false;
     int numLine = 0;
     string line;
 
     RegisterBank registerBank{};
-    Processor processor(&registerBank, &inFile, &outFile);
+    Processor processor(&registerBank, &inFile, &outFile, &syslog);
 
     //read till EoF
     while (getline(inFile, line)) {
-        cout << line << endl;
         if (regex_match(line, regex("(\\$AMJ)(.*)"))) {
-            processor.init();
+            processor.init(line);
             instructionFlag = true;
         } else if (regex_match(line, regex("(\\$DTA)(.*)"))) {
             processor.run();
-//            registerBank.showRegister(); //debugging
             instructionFlag = false;
             numLine = 0;
         } else if (regex_match(line, regex("(\\$END)(.*)"))) {

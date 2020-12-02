@@ -11,6 +11,7 @@
 
 typedef uint8_t byte;
 typedef uint16_t u16;
+typedef size_t ulong;
 
 using namespace std;
 

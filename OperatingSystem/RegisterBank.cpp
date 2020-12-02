@@ -8,23 +8,25 @@ void RegisterBank::init() {
     this->C = false;
 }
 
-void RegisterBank::showRegister() {
-    cout << "IC : " << this->IC << endl;
-    cout << "IR : ";
+void RegisterBank::showRegister(ostream *syslog) {
+    *syslog << "IC : " << this->IC << endl;
+    *syslog << "IR : ";
     for (unsigned char j : this->IR) {
-        cout << j;
+        *syslog << j;
     }
-    cout << endl << "R  : ";
+    *syslog << endl << "R  : ";
     for (unsigned char j : this->R) {
-        cout << j;
+        *syslog << j;
     }
-    cout << endl << "C  : " << C << endl << endl;
+    *syslog << endl << "C  : " << C << endl << endl;
 
     for (int i = 0; i < INSTRUCTION_LIMIT; i++) {
-        cout << "Address " << i << ": ";
+        *syslog << "Address ";
+        if(i < 10) *syslog << '0';
+        *syslog << i << ": ";
         for (int j = 0; j < INSTRUCTION_SIZE; j++) {
-            putchar(this->memoryRegisters[i][j]);
+            *syslog << (this->memoryRegisters[i][j]);
         }
-        cout << endl;
+        *syslog << endl;
     }
 }
