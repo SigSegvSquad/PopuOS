@@ -312,12 +312,12 @@ __________
 
 Job ID     : 0201
 Time Limit : 12
-Line Limit : 3
+Line Limit : 0
 
-IC : 12
-IR : H000
-R  : HOPE
-C  : 1
+IC : 1
+IR : GD20
+R  :     
+C  : 0
 
 Address 00: GD20
 Address 01: LR20
@@ -349,20 +349,20 @@ Address 26:
 Address 27:     
 Address 28:     
 Address 29:     
-Address 30: THER
-Address 31: E IS
-Address 32:  NO 
-Address 33: HOPE
+Address 30:     
+Address 31:     
+Address 32:     
+Address 33:     
 Address 34:     
 Address 35:     
 Address 36:     
 Address 37:     
 Address 38:     
 Address 39:     
-Address 40: BUT 
-Address 41: STIL
-Address 42: L HO
-Address 43: PE  
+Address 40:     
+Address 41:     
+Address 42:     
+Address 43:     
 Address 44:     
 Address 45:     
 Address 46:     
@@ -938,8 +938,8 @@ Job ID     : 0202
 Time Limit : 16
 Line Limit : 5
 
-IC : 16
-IR : H000
+IC : 12
+IR : SR51
 R  : *   
 C  : 0
 
@@ -1003,7 +1003,7 @@ Address 56:
 Address 57:     
 Address 58:     
 Address 59:     
-Address 60: *   
+Address 60:     
 Address 61:     
 Address 62:     
 Address 63:     
@@ -1250,8 +1250,8 @@ Job ID     : 0007
 Time Limit : 20
 Line Limit : 2
 
-IC : 20
-IR : H000
+IC : 18
+IR : PD50
 R  :    N
 C  : 0
 
@@ -1871,7 +1871,7 @@ Address 299:
 __________
 
 Job ID     : 0301
-Time Limit : 10
+Time Limit : 20
 Line Limit : 3
 
 IC : 10
@@ -2183,7 +2183,7 @@ Address 299:
 __________
 
 Job ID     : 0302
-Time Limit : 8
+Time Limit : 14
 Line Limit : 3
 
 IC : 8
@@ -2495,7 +2495,7 @@ Address 299:
 __________
 
 Job ID     : 0101
-Time Limit : 4
+Time Limit : 8
 Line Limit : 1
 
 IC : 5
@@ -2810,8 +2810,8 @@ Job ID     : 0102
 Time Limit : 7
 Line Limit : 2
 
-IC : 8
-IR : H000
+IC : 7
+IR : PD20
 R  : RAM 
 C  : 1
 
@@ -3122,10 +3122,10 @@ Job ID     : 0401
 Time Limit : 12
 Line Limit : 4
 
-IC : 12
-IR : H000
-R  : ABCD
-C  : 1
+IC : 6
+IR : GD50
+R  :     
+C  : 0
 
 Address 00: GD20
 Address 01: PD20

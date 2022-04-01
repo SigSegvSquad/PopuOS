@@ -2,17 +2,13 @@
 #define POPUOS_PROCESSOR_H
 
 #include "Utility.h"
-#include "Flags.h"
+#include "ProgramControlRegister.h"
 #include "RegisterBank.h"
 
 class Processor {
 private:
     string currJobID;
-
-    int totalTimeCounter = 0;
-    int totalLineCounter = 0;
-    int totalTimeLimit = 0;
-    int totalLineLimit = 0;
+    string errorMessage;
 
     int done = false;
 
@@ -22,7 +18,7 @@ private:
     ofstream *outFile;
     ofstream *syslog;
 
-    Flags *flags;
+    ProgramControlRegister *status;
     RegisterBank *registerBank;
 
     //auxilliary
@@ -41,7 +37,7 @@ private:
     void branchIfTrue(int address);
 
 public:
-    Processor(RegisterBank *r, Flags *f, ifstream *i, ofstream *o, ofstream *s);
+    Processor(RegisterBank *r, ProgramControlRegister *f, ifstream *i, ofstream *o, ofstream *s);
     void readInput(const byte *instruction);
     void init(const string& jobID);
     void run();
