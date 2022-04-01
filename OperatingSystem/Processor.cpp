@@ -1,28 +1,87 @@
 #include "Processor.h"
 
-Processor::Processor(RegisterBank *r, ifstream *i, ofstream *o, ofstream *s) {
+Processor::Processor(RegisterBank *r, Flags *f, ifstream *i, ofstream *o, ofstream *s) {
     this->registerBank = r;
+    this->flags = f;
     this->inFile = i;
     this->outFile = o;
     this->syslog = s;
 }
 
 void Processor::init(const string &jobID) {
-    *syslog << "Job ID     : " << jobID.substr(4, 4) << endl;
-    *syslog << "Code length: " << jobID.substr(8, 4) << endl;
-    *syslog << "Data length: " << jobID.substr(12, 4) << endl << endl;
+    currJobID = jobID.substr(4, 4);
+    totalTimeLimit = stoi(jobID.substr(8, 4));
+    totalLineLimit = stoi(jobID.substr(12, 4));
+
+    *syslog << "Job ID     : " << currJobID << endl;
+    *syslog << "Time Limit : " << totalTimeLimit << endl;
+    *syslog << "Line Limit : " << totalLineLimit << endl << endl;
+
+    *outFile << "JID : " << currJobID << "  ";
+    *outFile << "TTL : " << totalTimeLimit << "  ";
+    *outFile << "TLL : " << totalLineLimit << endl << endl;
+
     this->done = false;
+    this->totalTimeCounter = 0;
+
+    this->isError = false;
+
     this->registerBank->init();
 }
 
 void Processor::run() {
-    while (!done) {
+    while (!isExecutionDone()) {
         memcpy(registerBank->IR, registerBank->memoryRegisters[registerBank->IC], 4);
         registerBank->IC++;
         readInput(registerBank->IR);
     }
+
+    printJobOutput();
+
     this->registerBank->showRegister(syslog);
     *syslog << endl << "__________" << endl << endl;
+}
+
+bool Processor::isExecutionDone() {
+    if (flags->timeInterrupt == 2) {
+        cerr << "Time Limit Exceeded";
+        isError = true;
+        return true;
+    }
+
+    switch (flags->programInterrupt) {
+        case 1: {
+            cerr << "Invalid Opcode";
+            isError = true;
+            return true;
+        }
+        case 2: {
+            cerr << "Invalid Operand";
+            isError = true;
+            return true;
+        }
+        case 3: {
+            // check whether page fault is valid or invalid
+            isError = true;
+            return true;
+        }
+    }
+
+    return done;
+}
+
+void Processor::printJobOutput() {
+    if(!isError) {
+        *outFile << endl << "Program Terminated Successfully" << endl;
+    } else {
+        *outFile << endl << "Program Terminated Abnormally" << endl;
+    }
+
+    *outFile << "Interrupt Values - TI : " << flags->timeInterrupt;
+    *outFile << "  SI : " << flags->serviceInterrupt;
+    *outFile << "  PI : " << flags->programInterrupt << endl;
+
+    *outFile << endl;
 }
 
 void Processor::halt() {

@@ -20,7 +20,8 @@ int main() {
     string line;
 
     RegisterBank registerBank{};
-    Processor processor(&registerBank, &inFile, &outFile, &syslog);
+    Flags flags;
+    Processor processor(&registerBank, &flags, &inFile, &outFile, &syslog);
 
     //read till EoF
     while (getline(inFile, line)) {
@@ -33,7 +34,7 @@ int main() {
             numLine = 0;
         } else if (regex_match(line, regex("(\\$END)(.*)"))) {
             instructionFlag = false;
-            outFile << endl << endl;
+            outFile << endl;
         } else if (instructionFlag) {
             line = replaceString(line, "H", "H000");
             memcpy(&registerBank.memoryRegisters[numLine][0], line.c_str(), line.size());

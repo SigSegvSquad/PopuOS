@@ -6,7 +6,7 @@
 #include <iostream>
 
 #define EMPTY ' '
-#define INSTRUCTION_LIMIT 100
+#define INSTRUCTION_LIMIT 300
 #define INSTRUCTION_SIZE 4
 
 typedef uint8_t byte;

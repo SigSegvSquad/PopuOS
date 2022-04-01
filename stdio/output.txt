@@ -1,10 +1,22 @@
+JID : 0102  TTL : 21  TLL : 1
+
 A MAN A PLAN A CANAL PANAMA             
 
+Program Terminated Successfully
+Interrupt Values - TI : 0  SI : 0  PI : 0
+
+
+JID : 0201  TTL : 12  TLL : 3
 
 HOPE FOR IT                             
 THERE IS NO HOPE                        
 BUT STILL HOPE                          
 
+Program Terminated Successfully
+Interrupt Values - TI : 0  SI : 0  PI : 0
+
+
+JID : 0003  TTL : 17  TLL : 7
 
 3 LITTLE PIGS WENT TO OS CLASS.         
 THE WOLF ATE ONE!                       
@@ -14,6 +26,11 @@ THE WOLF ATE ONE!
 THE WOLF ATE ONE!                       
 CLASS DISMISSED!                        
 
+Program Terminated Successfully
+Interrupt Values - TI : 0  SI : 0  PI : 0
+
+
+JID : 0202  TTL : 16  TLL : 5
 
 *                                       
 *   *                                   
@@ -21,10 +38,20 @@ CLASS DISMISSED!
 *   *                                   
 *                                       
 
+Program Terminated Successfully
+Interrupt Values - TI : 0  SI : 0  PI : 0
+
+
+JID : 0007  TTL : 20  TLL : 2
 
    N   U   T   R   A   F   I   N        
    N   I   F   A   R   T   U   N        
 
+Program Terminated Successfully
+Interrupt Values - TI : 0  SI : 0  PI : 0
+
+
+JID : 0005  TTL : 34  TLL : 10
 
 I                                       
 HOPE                                    
@@ -34,31 +61,64 @@ DONE
 BEFORE                                  
 CRISTMAS!                               
 
+Program Terminated Successfully
+Interrupt Values - TI : 0  SI : 0  PI : 0
+
+
+JID : 0301  TTL : 10  TLL : 3
 
 VIT IS GOOD                             
 VIIT IS GOOD                            
 BOTH ARE SISTER INSTITUTES              
 
+Program Terminated Successfully
+Interrupt Values - TI : 0  SI : 0  PI : 0
+
+
+JID : 0302  TTL : 8  TLL : 3
 
 CAT CAN EAT RAT                         
 RAT CAN NOT EAT CAT                     
 RAT CAN EAT RAT                         
 
+Program Terminated Successfully
+Interrupt Values - TI : 0  SI : 0  PI : 0
+
+
+JID : 0101  TTL : 4  TLL : 1
 
 I LIKE THIS PEN OF  HIS                 
 
+Program Terminated Successfully
+Interrupt Values - TI : 0  SI : 0  PI : 0
+
+
+JID : 0102  TTL : 7  TLL : 2
 
 RAM  IS OLDER THAN  SHRIRAM             
 
+Program Terminated Successfully
+Interrupt Values - TI : 0  SI : 0  PI : 0
+
+
+JID : 0401  TTL : 12  TLL : 4
 
 ABCD                                    
 ABCD                                    
 MATCH                                   
 
+Program Terminated Successfully
+Interrupt Values - TI : 0  SI : 0  PI : 0
+
+
+JID : 0402  TTL : 13  TLL : 4
 
    RAT                                  
    SAT                                  
    ON                                   
    MAT                                  
+
+Program Terminated Successfully
+Interrupt Values - TI : 0  SI : 0  PI : 0
 
 
