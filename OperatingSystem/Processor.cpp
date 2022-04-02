@@ -14,8 +14,8 @@ void Processor::init(const string &jobID) {
     registerBank->totalTimeLimit = stoi(jobID.substr(8, 4));
     registerBank->totalLineLimit = stoi(jobID.substr(12, 4));
 
-    *syslog << "Job ID     : " << currJobID << endl;
-    *outFile << "Job ID     : " << currJobID << endl;
+    *syslog << "Job ID : " << currJobID << endl;
+    *outFile << "Job ID : " << currJobID << endl;
 
     this->done = false;
     this->isError = false;
@@ -25,7 +25,7 @@ void Processor::init(const string &jobID) {
 
 void Processor::run() {
     while (!isExecutionDone()) {
-        memcpy(registerBank->IR, registerBank->memoryRegisters[registerBank->IC], 4);
+        memcpy(registerBank->IR, registerBank->memoryRegisters[registerBank->getRealAddress(registerBank->IC)], 4);
         registerBank->IC++;
         readInput(registerBank->IR);
     }
@@ -110,12 +110,23 @@ void Processor::getData(int address) {
     }
 
     if (address % 10 != 0) {
-        registerBank->programInterrupt = 2;
+        registerBank->PI = 2;
         registerBank->errorCode = 5;
         return;
     }
 
-    memcpy(&registerBank->memoryRegisters[address], line.c_str(), line.size());
+    registerBank->SI = 1;
+    registerBank->PI = 3;
+
+    //master mode
+    int realAddress = registerBank->getRealAddress(address);
+
+    if(realAddress == -1) {
+        registerBank->allocateMemory(address);
+        realAddress = registerBank->getRealAddress(address);
+    }
+
+    memcpy(&registerBank->memoryRegisters[realAddress], line.c_str(), line.size());
 }
 
 //load next 40 bytes from start address into standard output
@@ -123,20 +134,35 @@ void Processor::printData(int address) {
     registerBank->incrementTime(2);
 
     char line[40];
-    memcpy(&line, &registerBank->memoryRegisters[address], 40);
+
+    registerBank->SI = 2;
+
+    //master mode;
+    int realAddress = registerBank->getRealAddress(address);
+    memcpy(&line, &registerBank->memoryRegisters[realAddress], 40);
     *outFile << line << endl;
 }
 
 //load data from memory address into register
 void Processor::loadRegister(int address) {
     registerBank->incrementTime(1);
-    memcpy(registerBank->R, &registerBank->memoryRegisters[address], 4);
+
+    int realAddress = registerBank->getRealAddress(address);
+    memcpy(registerBank->R, &registerBank->memoryRegisters[realAddress], 4);
 }
 
 //store data from register into memory address
 void Processor::storeRegister(int address) {
     registerBank->incrementTime(1);
-    memcpy(&registerBank->memoryRegisters[address], registerBank->R, 4);
+
+    int realAddress = registerBank->getRealAddress(address);
+
+    if(realAddress == -1) {
+        registerBank->allocateMemory(address);
+        realAddress = registerBank->getRealAddress(address);
+    }
+
+    memcpy(&registerBank->memoryRegisters[realAddress], registerBank->R, 4);
 }
 
 //compare values given in two registers
@@ -166,7 +192,7 @@ void Processor::branchIfTrue(int address) {
 void Processor::readInput(const byte *instruction) {
     int address = (instruction[2] - '0') * 10 + (instruction[3] - '0');
     if(address < 0 || address > 99) {
-        registerBank->programInterrupt = 2;
+        registerBank->PI = 2;
         registerBank->errorCode = 5;
         return;
     }
@@ -179,7 +205,7 @@ void Processor::readInput(const byte *instruction) {
     else if (instruction[0] == 'C' && instruction[1] == 'R') { compareRegister(address); }
     else if (instruction[0] == 'B' && instruction[1] == 'T') { branchIfTrue(address); }
     else {
-        registerBank->programInterrupt = 1;
+        registerBank->PI = 1;
         registerBank->errorCode = 4;
         return;
     }

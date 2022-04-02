@@ -26,6 +26,7 @@ int main() {
     while (getline(inFile, line)) {
         if (regex_match(line, regex("(\\$AMJ)(.*)"))) {
             processor.init(line);
+            registerBank.initialisePageTable();
             instructionFlag = true;
         } else if (regex_match(line, regex("(\\$DTA)(.*)"))) {
             processor.run();
@@ -36,7 +37,14 @@ int main() {
             outFile << endl;
         } else if (instructionFlag) {
             line = replaceString(line, "H", "H000");
-            memcpy(&registerBank.memoryRegisters[numLine][0], line.c_str(), line.size());
+
+            int realAddress = registerBank.getRealAddress(numLine);
+
+            if(realAddress == -1) {
+                registerBank.allocateMemory(numLine);
+                realAddress = registerBank.getRealAddress(numLine);
+            }
+            memcpy(&registerBank.memoryRegisters[realAddress][0], line.c_str(), line.size());
             numLine += ceil(line.size() / 4);
         }
     }
