@@ -2,7 +2,6 @@
 #define POPUOS_PROCESSOR_H
 
 #include "Utility.h"
-#include "ProgramControlRegister.h"
 #include "RegisterBank.h"
 
 class Processor {
@@ -18,7 +17,6 @@ private:
     ofstream *outFile;
     ofstream *syslog;
 
-    ProgramControlRegister *status;
     RegisterBank *registerBank;
 
     //auxilliary
@@ -37,7 +35,7 @@ private:
     void branchIfTrue(int address);
 
 public:
-    Processor(RegisterBank *r, ProgramControlRegister *f, ifstream *i, ofstream *o, ofstream *s);
+    Processor(RegisterBank *r, ifstream *i, ofstream *o, ofstream *s);
     void readInput(const byte *instruction);
     void init(const string& jobID);
     void run();

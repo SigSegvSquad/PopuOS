@@ -1,6 +1,8 @@
 Job ID     : 0102
-Time Limit : 21
-Line Limit : 1
+TTL : 21  TLL : 1
+
+Interrupt Values - TI : 0  SI : 0  PI : 0
+Counter Values   - TTC : 23  TLC : 1
 
 IC : 21
 IR : H000
@@ -311,8 +313,10 @@ Address 299:
 __________
 
 Job ID     : 0201
-Time Limit : 12
-Line Limit : 0
+TTL : 12  TLL : 0
+
+Interrupt Values - TI : 0  SI : 0  PI : 0
+Counter Values   - TTC : 2  TLC : 1
 
 IC : 1
 IR : GD20
@@ -623,8 +627,10 @@ Address 299:
 __________
 
 Job ID     : 0003
-Time Limit : 17
-Line Limit : 7
+TTL : 17  TLL : 7
+
+Interrupt Values - TI : 0  SI : 0  PI : 0
+Counter Values   - TTC : 29  TLC : 5
 
 IC : 17
 IR : H000
@@ -935,8 +941,10 @@ Address 299:
 __________
 
 Job ID     : 0202
-Time Limit : 16
-Line Limit : 5
+TTL : 16  TLL : 5
+
+Interrupt Values - TI : 2  SI : 0  PI : 0
+Counter Values   - TTC : 16  TLC : 1
 
 IC : 12
 IR : SR51
@@ -1247,8 +1255,10 @@ Address 299:
 __________
 
 Job ID     : 0007
-Time Limit : 20
-Line Limit : 2
+TTL : 20  TLL : 2
+
+Interrupt Values - TI : 2  SI : 0  PI : 0
+Counter Values   - TTC : 20  TLC : 1
 
 IC : 18
 IR : PD50
@@ -1559,8 +1569,10 @@ Address 299:
 __________
 
 Job ID     : 0005
-Time Limit : 34
-Line Limit : 10
+TTL : 34  TLL : 10
+
+Interrupt Values - TI : 0  SI : 0  PI : 0
+Counter Values   - TTC : 33  TLC : 7
 
 IC : 34
 IR : H000
@@ -1871,8 +1883,10 @@ Address 299:
 __________
 
 Job ID     : 0301
-Time Limit : 20
-Line Limit : 3
+TTL : 20  TLL : 3
+
+Interrupt Values - TI : 0  SI : 0  PI : 0
+Counter Values   - TTC : 16  TLC : 3
 
 IC : 10
 IR : H000
@@ -2183,8 +2197,10 @@ Address 299:
 __________
 
 Job ID     : 0302
-Time Limit : 14
-Line Limit : 3
+TTL : 14  TLL : 3
+
+Interrupt Values - TI : 0  SI : 0  PI : 0
+Counter Values   - TTC : 13  TLC : 2
 
 IC : 8
 IR : H000
@@ -2495,8 +2511,10 @@ Address 299:
 __________
 
 Job ID     : 0101
-Time Limit : 8
-Line Limit : 1
+TTL : 8  TLL : 1
+
+Interrupt Values - TI : 0  SI : 0  PI : 0
+Counter Values   - TTC : 7  TLC : 1
 
 IC : 5
 IR : H000
@@ -2807,8 +2825,10 @@ Address 299:
 __________
 
 Job ID     : 0102
-Time Limit : 7
-Line Limit : 2
+TTL : 7  TLL : 2
+
+Interrupt Values - TI : 2  SI : 0  PI : 0
+Counter Values   - TTC : 7  TLC : 1
 
 IC : 7
 IR : PD20
@@ -3119,8 +3139,10 @@ Address 299:
 __________
 
 Job ID     : 0401
-Time Limit : 12
-Line Limit : 4
+TTL : 12  TLL : 4
+
+Interrupt Values - TI : 2  SI : 0  PI : 0
+Counter Values   - TTC : 12  TLC : 4
 
 IC : 6
 IR : GD50
@@ -3431,8 +3453,10 @@ Address 299:
 __________
 
 Job ID     : 0402
-Time Limit : 13
-Line Limit : 4
+TTL : 13  TLL : 4
+
+Interrupt Values - TI : 0  SI : 0  PI : 0
+Counter Values   - TTC : 21  TLC : 4
 
 IC : 13
 IR : H000

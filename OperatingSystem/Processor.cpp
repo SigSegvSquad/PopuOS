@@ -1,27 +1,21 @@
 #include "Processor.h"
 
-Processor::Processor(RegisterBank *r, ProgramControlRegister *f, ifstream *i, ofstream *o, ofstream *s) {
+Processor::Processor(RegisterBank *r, ifstream *i, ofstream *o, ofstream *s) {
     this->registerBank = r;
-    this->status = f;
     this->inFile = i;
     this->outFile = o;
     this->syslog = s;
 }
 
 void Processor::init(const string &jobID) {
-    status->resetFlagsAndCounters();
+    registerBank->resetFlagsAndCounters();
 
     currJobID = jobID.substr(4, 4);
-    status->totalTimeLimit = stoi(jobID.substr(8, 4));
-    status->totalLineLimit = stoi(jobID.substr(12, 4));
+    registerBank->totalTimeLimit = stoi(jobID.substr(8, 4));
+    registerBank->totalLineLimit = stoi(jobID.substr(12, 4));
 
     *syslog << "Job ID     : " << currJobID << endl;
-    *syslog << "Time Limit : " << status->totalTimeLimit << endl;
-    *syslog << "Line Limit : " << status->totalLineLimit << endl << endl;
-
-    *outFile << "JID : " << currJobID << "  ";
-    *outFile << "TTL : " << status->totalTimeLimit << "  ";
-    *outFile << "TLL : " << status->totalLineLimit << endl << endl;
+    *outFile << "Job ID     : " << currJobID << endl;
 
     this->done = false;
     this->isError = false;
@@ -43,7 +37,7 @@ void Processor::run() {
 }
 
 bool Processor::isExecutionDone() {
-    switch (status->errorCode) {
+    switch (registerBank->errorCode) {
         case 1: {
             errorMessage = "Out of Data";
             isError = true;
@@ -86,44 +80,38 @@ void Processor::printJobOutput() {
         *outFile << endl << "Job terminated abnormally";
     }
 
-    *outFile << " with exit code " << status->errorCode << endl;
+    *outFile << " with exit code " << (int) registerBank->errorCode << endl;
 
     if(isError) {
         *outFile << "Error Message: " << errorMessage << endl;
     }
 
-    *outFile << "Interrupt Values - TI : " << status->timeInterrupt;
-    *outFile << "  SI : " << status->serviceInterrupt;
-    *outFile << "  PI : " << status->programInterrupt << endl;
-
-    *outFile << "Counter Values   - TTC : " << status->totalTimeCounter;
-    *outFile << "  TLC : " << status->totalLineCounter << endl;
-
-    *outFile << endl;
+    registerBank->printProgramControlValues(outFile);
+    registerBank->printProgramControlValues(syslog);
 }
 
 void Processor::halt() {
-    status->incrementTime(1);
+    registerBank->incrementTime(1);
     done = true;
 }
 
 //load data into memory if address is a multiple of 10
 void Processor::getData(int address) {
-    status->incrementLine();
-    status->incrementTime(2);
+    registerBank->incrementLine();
+    registerBank->incrementTime(2);
 
     string line;
     streampos oldPosition = inFile->tellg();
     getline(*inFile, line);
     if(regex_match(line, regex("(\\$END)(.*)"))) {
         inFile->seekg(oldPosition);
-        status->errorCode = 1;
+        registerBank->errorCode = 1;
         return;
     }
 
     if (address % 10 != 0) {
-        status->programInterrupt = 2;
-        status->errorCode = 5;
+        registerBank->programInterrupt = 2;
+        registerBank->errorCode = 5;
         return;
     }
 
@@ -132,7 +120,7 @@ void Processor::getData(int address) {
 
 //load next 40 bytes from start address into standard output
 void Processor::printData(int address) {
-    status->incrementTime(2);
+    registerBank->incrementTime(2);
 
     char line[40];
     memcpy(&line, &registerBank->memoryRegisters[address], 40);
@@ -141,19 +129,19 @@ void Processor::printData(int address) {
 
 //load data from memory address into register
 void Processor::loadRegister(int address) {
-    status->incrementTime(1);
+    registerBank->incrementTime(1);
     memcpy(registerBank->R, &registerBank->memoryRegisters[address], 4);
 }
 
 //store data from register into memory address
 void Processor::storeRegister(int address) {
-    status->incrementTime(1);
+    registerBank->incrementTime(1);
     memcpy(&registerBank->memoryRegisters[address], registerBank->R, 4);
 }
 
 //compare values given in two registers
 void Processor::compareRegister(int address) {
-    status->incrementTime(1);
+    registerBank->incrementTime(1);
     bool equal = true;
 
     for (int i = 0; i < 4; ++i) {
@@ -167,7 +155,7 @@ void Processor::compareRegister(int address) {
 
 //go to specified address if value of C is 1
 void Processor::branchIfTrue(int address) {
-    status->incrementTime(1);
+    registerBank->incrementTime(1);
 
     if (registerBank->C) {
         registerBank->IC = address;
@@ -178,8 +166,8 @@ void Processor::branchIfTrue(int address) {
 void Processor::readInput(const byte *instruction) {
     int address = (instruction[2] - '0') * 10 + (instruction[3] - '0');
     if(address < 0 || address > 99) {
-        status->programInterrupt = 2;
-        status->errorCode = 5;
+        registerBank->programInterrupt = 2;
+        registerBank->errorCode = 5;
         return;
     }
 
@@ -191,8 +179,8 @@ void Processor::readInput(const byte *instruction) {
     else if (instruction[0] == 'C' && instruction[1] == 'R') { compareRegister(address); }
     else if (instruction[0] == 'B' && instruction[1] == 'T') { branchIfTrue(address); }
     else {
-        status->programInterrupt = 1;
-        status->errorCode = 4;
+        registerBank->programInterrupt = 1;
+        registerBank->errorCode = 4;
         return;
     }
 }

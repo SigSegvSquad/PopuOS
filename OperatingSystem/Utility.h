@@ -8,6 +8,7 @@
 #define EMPTY ' '
 #define INSTRUCTION_LIMIT 300
 #define INSTRUCTION_SIZE 4
+#define PAGE_SIZE 10
 
 typedef uint8_t byte;
 typedef uint16_t u16;

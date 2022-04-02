@@ -20,8 +20,7 @@ int main() {
     string line;
 
     RegisterBank registerBank{};
-    ProgramControlRegister flags;
-    Processor processor(&registerBank, &flags, &inFile, &outFile, &syslog);
+    Processor processor(&registerBank, &inFile, &outFile, &syslog);
 
     //read till EoF
     while (getline(inFile, line)) {
