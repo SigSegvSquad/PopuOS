@@ -1,8 +1,6 @@
 #include "RegisterBank.h"
 
 void RegisterBank::init() {
-    srand(time(NULL));
-
     memset(this->memoryRegisters, EMPTY, INSTRUCTION_SIZE * INSTRUCTION_LIMIT * sizeof(byte));
     memset(this->IR, EMPTY, INSTRUCTION_SIZE * sizeof(byte));
     memset(this->R, EMPTY, INSTRUCTION_SIZE * sizeof(byte));

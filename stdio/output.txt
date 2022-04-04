@@ -1,8 +1,8 @@
 Job ID : 0102
-A MAN A PLAN A CANAL PANAMA             
+A MAN A PLAN A CANAL PANAMA     SR43    
 
 Job terminated successfully with exit code 0
-TTL : 21  TLL : 1  PTR : 180
+TTL : 21  TLL : 1  PTR : 170
 
 Interrupt Values - TI : 0  SI : 2  PI : 0
 Counter Values   - TTC : 23  TLC : 1
@@ -15,7 +15,7 @@ THERE IS NO HOPE
 
 Job terminated abnormally with exit code 1
 Error Message: Out of Data
-TTL : 12  TLL : 0  PTR : 180
+TTL : 12  TLL : 0  PTR : 130
 
 Interrupt Values - TI : 0  SI : 2  PI : 0
 Counter Values   - TTC : 17  TLC : 4
@@ -31,7 +31,7 @@ THE WOLF ATE ONE!
 CLASS DISMISSED!                        
 
 Job terminated successfully with exit code 0
-TTL : 17  TLL : 7  PTR : 180
+TTL : 17  TLL : 7  PTR : 160
 
 Interrupt Values - TI : 0  SI : 2  PI : 0
 Counter Values   - TTC : 29  TLC : 5
@@ -44,7 +44,7 @@ Job ID : 0202
 
 Job terminated abnormally with exit code 3
 Error Message: Time Limit Exceeded
-TTL : 16  TLL : 5  PTR : 180
+TTL : 16  TLL : 5  PTR : 190
 
 Interrupt Values - TI : 2  SI : 0  PI : 0
 Counter Values   - TTC : 16  TLC : 1
@@ -55,7 +55,7 @@ Job ID : 0007
 
 Job terminated abnormally with exit code 3
 Error Message: Time Limit Exceeded
-TTL : 20  TLL : 2  PTR : 180
+TTL : 20  TLL : 2  PTR : 240
 
 Interrupt Values - TI : 2  SI : 2  PI : 0
 Counter Values   - TTC : 20  TLC : 1
@@ -65,10 +65,10 @@ Job ID : 0005
 
 Job terminated abnormally with exit code 5
 Error Message: Operand Error
-TTL : 34  TLL : 10  PTR : 180
+TTL : 34  TLL : 10  PTR : 270
 
 Interrupt Values - TI : 0  SI : 0  PI : 2
-Counter Values   - TTC : 6  TLC : 1
+Counter Values   - TTC : 0  TLC : 0
 
 
 Job ID : 0301
@@ -77,7 +77,7 @@ VIIT IS GOOD
 BOTH ARE SISTER INSTITUTES              
 
 Job terminated successfully with exit code 0
-TTL : 20  TLL : 3  PTR : 180
+TTL : 20  TLL : 3  PTR : 210
 
 Interrupt Values - TI : 0  SI : 2  PI : 0
 Counter Values   - TTC : 16  TLC : 3
@@ -89,7 +89,7 @@ RAT CAN NOT EAT CAT
 RAT CAN EAT RAT                         
 
 Job terminated successfully with exit code 0
-TTL : 14  TLL : 3  PTR : 180
+TTL : 14  TLL : 3  PTR : 290
 
 Interrupt Values - TI : 0  SI : 2  PI : 0
 Counter Values   - TTC : 13  TLC : 2
@@ -99,7 +99,7 @@ Job ID : 0101
 I LIKE THIS PEN OF  HIS                 
 
 Job terminated successfully with exit code 0
-TTL : 8  TLL : 1  PTR : 180
+TTL : 8  TLL : 1  PTR : 40
 
 Interrupt Values - TI : 0  SI : 2  PI : 0
 Counter Values   - TTC : 7  TLC : 1
@@ -110,7 +110,7 @@ NOT IN EXISTANCE
 RAM  IS OLDER THAN  SHRIRAM             
 
 Job terminated successfully with exit code 0
-TTL : 7  TLL : 2  PTR : 180
+TTL : 7  TLL : 2  PTR : 280
 
 Interrupt Values - TI : 2  SI : 2  PI : 0
 Counter Values   - TTC : 12  TLC : 2
@@ -119,14 +119,13 @@ Counter Values   - TTC : 12  TLC : 2
 Job ID : 0401
 ABCD                                    
 ABCD                                    
-DO NOT                                  
 MATCH                                   
 
 Job terminated successfully with exit code 0
-TTL : 12  TLL : 4  PTR : 180
+TTL : 12  TLL : 4  PTR : 50
 
 Interrupt Values - TI : 2  SI : 2  PI : 0
-Counter Values   - TTC : 20  TLC : 4
+Counter Values   - TTC : 18  TLC : 4
 
 
 Job ID : 0402
@@ -136,7 +135,7 @@ Job ID : 0402
    MAT                                  
 
 Job terminated successfully with exit code 0
-TTL : 13  TLL : 4  PTR : 180
+TTL : 13  TLL : 4  PTR : 270
 
 Interrupt Values - TI : 0  SI : 2  PI : 0
 Counter Values   - TTC : 21  TLC : 4

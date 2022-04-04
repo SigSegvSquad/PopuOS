@@ -12,6 +12,8 @@ string replaceString(string subject, const std::string &search, const string &re
 }
 
 int main() {
+    srand(time(NULL));
+
     ifstream inFile("../stdio/input.txt");
     ofstream outFile("../stdio/output.txt");
     ofstream syslog("../stdio/syslog.txt");
